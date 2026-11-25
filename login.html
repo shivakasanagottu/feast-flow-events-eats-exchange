@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FeastFlow | Secure Login & Sign Up - EventEats Exchange</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="auth-page-body">
+
+  <!-- Ambient Glow Background Accents -->
+  <div class="ambient-glow glow-top" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
+  <!-- Top Minimal Navigation -->
+  <header class="auth-top-nav">
+    <div class="container auth-nav-inner">
+      <a href="index.html" class="brand-logo" title="Back to FeastFlow Home">
+        <div class="logo-icon"><i class="fa-solid fa-utensils"></i></div>
+        <div>
+          <span class="logo-title">Feast<span>Flow</span></span>
+          <span class="logo-sub">EventEats Exchange</span>
+        </div>
+      </a>
+
+      <div class="auth-nav-actions">
+        <span class="status-indicator-pill hide-mobile">
+          <span class="live-dot"></span> Live Portal v2.4
+        </span>
+        <a href="index.html" class="btn btn-outline btn-sm">
+          <i class="fa-solid fa-arrow-left"></i> <span>Back to Calculator</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Auth Page Content -->
+  <main class="auth-main-wrapper">
+    <div class="container auth-split-grid">
+
+      <!-- LEFT COLUMN: Brand Value Proposition & Live Trust Showcase -->
+      <section class="auth-showcase-panel">
+        <div class="auth-badge-tag">
+          <i class="fa-solid fa-shield-halved"></i> Campus & Corporate Verified Network
+        </div>
+
+        <h1 class="auth-headline">
+          Smart, Transparent Event Catering Starts With a <span class="text-gradient">Verified Account</span>.
+        </h1>
+        
+        <p class="auth-lead">
+          Join 240+ student committee chairs, cultural fest coordinators, corporate event managers, and FSSAI-audited master caterers across India.
+        </p>
+
+        <!-- Feature Points -->
+        <div class="auth-features-list">
+          <div class="auth-feature-card">
+            <div class="feature-icon icon-emerald"><i class="fa-solid fa-calculator"></i></div>
+            <div class="feature-content">
+              <h3>Per-Plate Algorithmic Quotes</h3>
+              <p>Transparent costing broken down by course weights, guest headcounts, and live tandoor stations with zero hidden vendor markups.</p>
+            </div>
+          </div>
+
+          <div class="auth-feature-card">
+            <div class="feature-icon icon-amber"><i class="fa-solid fa-calendar-check"></i></div>
+            <div class="feature-content">
+              <h3>Complimentary Tasting Sessions</h3>
+              <p>Schedule curated tasting sessions at caterers' base kitchens before sanctioning committee budgets or signing contracts.</p>
+            </div>
+          </div>
+
+          <div class="auth-feature-card">
+            <div class="feature-icon icon-cyan"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <div class="feature-content">
+              <h3>3-Tier Escrow & Sanction Sheets</h3>
+              <p>Generate committee-ready PDF sanction sheets with student lead, executive chef, and college dean budget approvals.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Booking Social Proof Snippet -->
+        <div class="auth-testimonial-box">
+          <div class="testimonial-header">
+            <div class="quote-stars">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <span class="testimonial-tag"><i class="fa-solid fa-circle-check"></i> Verified Campus Fest</span>
+          </div>
+          <p class="testimonial-text">
+            "FeastFlow reduced our farewell banquet catering approval time from 10 days to 15 minutes! The transparent side-by-side matrix convinced our Dean without any friction."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div>
+              <strong>Priya Sharma</strong>
+              <small>Student Council Head • 150-Pax Farewell Banquet (₹420/plate)</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Stats Bar -->
+        <div class="auth-stats-row">
+          <div class="auth-stat-item">
+            <strong>50+</strong>
+            <span>Verified Caterers</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="auth-stat-item">
+            <strong>₹1.4Cr+</strong>
+            <span>Escrow Protected</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="auth-stat-item">
+            <strong>100%</strong>
+            <span>FSSAI Certified</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: Authentication Bento Card -->
+      <section class="auth-card-panel">
+        <div class="auth-card">
+
+          <!-- Tab Switcher: Sign In vs Sign Up -->
+          <div class="auth-nav-tabs">
+            <button type="button" class="auth-tab active" id="tabSignIn">
+              <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In
+            </button>
+            <button type="button" class="auth-tab" id="tabSignUp">
+              <i class="fa-solid fa-user-plus"></i> Create Account
+            </button>
+          </div>
+
+          <!-- Role Selector -->
+          <div class="auth-role-wrapper">
+            <label class="auth-field-label"><i class="fa-solid fa-user-tag"></i> Select Your Role:</label>
+            <div class="auth-role-pills" id="rolePillsContainer">
+              <button type="button" class="role-pill active" data-role="organizer" data-name="Student / Event Lead">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Student / Event Lead</span>
+              </button>
+              <button type="button" class="role-pill" data-role="caterer" data-name="Caterer Partner">
+                <i class="fa-solid fa-utensils"></i>
+                <span>Caterer Partner</span>
+              </button>
+              <button type="button" class="role-pill" data-role="admin" data-name="Dean / Approver">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>Dean / Admin</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick 1-Click Demo Logins -->
+          <div class="auth-demo-presets-box">
+            <div class="demo-box-header">
+              <span class="demo-badge"><i class="fa-solid fa-bolt"></i> 1-Click Fast Demos:</span>
+              <span class="demo-hint">Autofills test credentials</span>
+            </div>
+            <div class="demo-buttons-row">
+              <button type="button" class="demo-quick-btn" id="demoStudentBtn" title="Auto-fill Student Lead">
+                <i class="fa-solid fa-user-graduate"></i> Priya (Student)
+              </button>
+              <button type="button" class="demo-quick-btn" id="demoCatererBtn" title="Auto-fill Caterer Partner">
+                <i class="fa-solid fa-store"></i> Royal Feast
+              </button>
+              <button type="button" class="demo-quick-btn" id="demoDeanBtn" title="Auto-fill Dean Finance Approver">
+                <i class="fa-solid fa-stamp"></i> Dr. Raman (Dean)
+              </button>
+            </div>
+          </div>
+
+          <!-- Alert Feedback Container -->
+          <div id="authAlert" class="auth-alert-message" style="display: none;"></div>
+
+          <!-- ==============================================
+               FORM 1: SIGN IN FORM
+               ============================================== -->
+          <form id="signInForm" class="auth-form" novalidate>
+            <div class="form-group-custom">
+              <label for="loginEmail" class="auth-field-label">Official Email or Campus ID</label>
+              <div class="input-with-icon">
+                <span class="input-icon"><i class="fa-solid fa-envelope"></i></span>
+                <input 
+                  type="email" 
+                  id="loginEmail" 
+                  class="custom-input" 
+                  placeholder="e.g. priya.festhead@campus.edu" 
+                  required
+                  autocomplete="username"
+                >
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <div class="label-with-action">
+                <label for="loginPassword" class="auth-field-label">Password</label>
+                <button type="button" class="forgot-link-btn" id="openForgotModalBtn">Forgot Password?</button>
+              </div>
+              <div class="input-with-icon">
+                <span class="input-icon"><i class="fa-solid fa-lock"></i></span>
+                <input 
+                  type="password" 
+                  id="loginPassword" 
+                  class="custom-input" 
+                  placeholder="Enter your password" 
+                  required
+                  autocomplete="current-password"
+                >
+                <button type="button" class="password-visibility-btn" id="toggleLoginPasswordBtn" aria-label="Toggle password visibility">
+                  <i class="fa-solid fa-eye" id="toggleLoginPasswordIcon"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-options-row">
+              <label class="custom-checkbox-label">
+                <input type="checkbox" id="rememberMeCheckbox" checked>
+                <span class="checkbox-box"><i class="fa-solid fa-check"></i></span>
+                <span>Keep me signed in for 30 days</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block auth-submit-btn" id="signInSubmitBtn">
+              <span class="btn-text">Sign In to FeastFlow</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </form>
+
+          <!-- ==============================================
+               FORM 2: SIGN UP / REGISTRATION FORM
+               ============================================== -->
+          <form id="signUpForm" class="auth-form" style="display: none;" novalidate>
+            <div class="form-row-2">
+              <div class="form-group-custom">
+                <label for="regFullName" class="auth-field-label">Full Name</label>
+                <div class="input-with-icon">
+                  <span class="input-icon"><i class="fa-solid fa-user"></i></span>
+                  <input type="text" id="regFullName" class="custom-input" placeholder="e.g. Rahul Verma" required>
+                </div>
+              </div>
+
+              <div class="form-group-custom">
+                <label for="regOrgName" class="auth-field-label">College / Company</label>
+                <div class="input-with-icon">
+                  <span class="input-icon"><i class="fa-solid fa-building"></i></span>
+                  <input type="text" id="regOrgName" class="custom-input" placeholder="e.g. IIT Delhi / Student Council" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group-custom">
+                <label for="regEmail" class="auth-field-label">Official Email</label>
+                <div class="input-with-icon">
+                  <span class="input-icon"><i class="fa-solid fa-envelope"></i></span>
+                  <input type="email" id="regEmail" class="custom-input" placeholder="name@college.edu" required>
+                </div>
+              </div>
+
+              <div class="form-group-custom">
+                <label for="regPhone" class="auth-field-label">Mobile Number</label>
+                <div class="input-with-icon">
+                  <span class="input-icon"><i class="fa-solid fa-phone"></i></span>
+                  <input type="tel" id="regPhone" class="custom-input" placeholder="+91 98765 43210" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <label for="regPassword" class="auth-field-label">Create Secure Password</label>
+              <div class="input-with-icon">
+                <span class="input-icon"><i class="fa-solid fa-shield-keyhole"></i></span>
+                <input 
+                  type="password" 
+                  id="regPassword" 
+                  class="custom-input" 
+                  placeholder="Min 8 characters with number & symbol" 
+                  required
+                  autocomplete="new-password"
+                >
+                <button type="button" class="password-visibility-btn" id="toggleRegPasswordBtn" aria-label="Toggle password visibility">
+                  <i class="fa-solid fa-eye" id="toggleRegPasswordIcon"></i>
+                </button>
+              </div>
+
+              <!-- Real-time Password Strength Meter -->
+              <div class="password-strength-box" id="passwordStrengthBox">
+                <div class="strength-track">
+                  <div class="strength-fill" id="strengthFill"></div>
+                </div>
+                <div class="strength-label-row">
+                  <span class="strength-status-text" id="strengthStatusText">Password strength: Empty</span>
+                  <span class="strength-hint">Use 8+ chars, numbers & uppercase</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group-custom">
+              <label for="regConfirmPassword" class="auth-field-label">Confirm Password</label>
+              <div class="input-with-icon">
+                <span class="input-icon"><i class="fa-solid fa-check-double"></i></span>
+                <input 
+                  type="password" 
+                  id="regConfirmPassword" 
+                  class="custom-input" 
+                  placeholder="Re-enter password" 
+                  required
+                  autocomplete="new-password"
+                >
+                <span class="password-match-badge" id="passwordMatchBadge" style="display:none;">
+                  <i class="fa-solid fa-check"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-options-row">
+              <label class="custom-checkbox-label">
+                <input type="checkbox" id="regTermsCheckbox" required checked>
+                <span class="checkbox-box"><i class="fa-solid fa-check"></i></span>
+                <span>I agree to FeastFlow's <a href="#" class="inline-link" onclick="event.preventDefault(); alert('FeastFlow Terms: All catering quotes are binding for 14 days with 100% escrow protection.');">Terms of Service</a> & <a href="#" class="inline-link" onclick="event.preventDefault(); alert('FeastFlow Privacy: Your campus credentials and contact information are strictly guarded.');">Privacy Policy</a></span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block auth-submit-btn" id="signUpSubmitBtn">
+              <span class="btn-text">Create Free FeastFlow Account</span>
+              <i class="fa-solid fa-user-check"></i>
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <div class="auth-divider">
+            <span>or sign in with single sign-on</span>
+          </div>
+
+          <!-- Social / Campus SSO Options -->
+          <div class="sso-buttons-grid">
+            <button type="button" class="sso-btn" id="googleSsoBtn">
+              <svg class="sso-icon" viewBox="0 0 24 24" width="18" height="18">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Google Account</span>
+            </button>
+
+            <button type="button" class="sso-btn" id="microsoftSsoBtn">
+              <svg class="sso-icon" viewBox="0 0 24 24" width="18" height="18">
+                <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+                <rect x="13" y="1" width="10" height="10" fill="#7fba00"/>
+                <rect x="1" y="13" width="10" height="10" fill="#00a4ef"/>
+                <rect x="13" y="13" width="10" height="10" fill="#ffb900"/>
+              </svg>
+              <span>Campus 365 SSO</span>
+            </button>
+          </div>
+
+          <!-- Bottom Guest / Back Action -->
+          <div class="auth-footer-prompt">
+            <span>Just testing the calculator?</span>
+            <a href="index.html" class="guest-action-link">
+              <span>Continue as Guest</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==============================================
+       FORGOT PASSWORD MODAL DIALOG
+       ============================================== -->
+  <div class="auth-modal-overlay" id="forgotModalOverlay" style="display: none;">
+    <div class="auth-modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header-row">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge"><i class="fa-solid fa-key"></i></div>
+          <div>
+            <h3 id="modalTitle">Reset Account Password</h3>
+            <p>Enter your registered college or vendor email address.</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeForgotModalBtn" aria-label="Close dialog">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body-content">
+        <div id="forgotModalAlert" class="auth-alert-message" style="display: none;"></div>
+        <form id="forgotPasswordForm" novalidate>
+          <div class="form-group-custom">
+            <label for="forgotEmail" class="auth-field-label">Registered Email</label>
+            <div class="input-with-icon">
+              <span class="input-icon"><i class="fa-solid fa-envelope"></i></span>
+              <input type="email" id="forgotEmail" class="custom-input" placeholder="e.g. priya.festhead@campus.edu" required>
+            </div>
+          </div>
+          <div class="modal-actions-row">
+            <button type="button" class="btn btn-outline btn-sm" id="cancelForgotBtn">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-sm" id="sendResetBtn">
+              <span>Send Recovery Link</span> <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Authentication Script -->
+  <script src="login.js"></script>
+</body>
+</html>

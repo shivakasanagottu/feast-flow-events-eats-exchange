@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FeastFlow | EventEats Exchange - Catering Marketplace & Quote Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- Ambient Glow Background Accents (Gen-Z Aesthetic) -->
+  <div class="ambient-glow glow-top" aria-hidden="true"></div>
+  <div class="ambient-glow glow-bottom" aria-hidden="true"></div>
+
+  <!-- Top Brand Navigation Header -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="brand-logo">
+        <div class="logo-icon"><i class="fa-solid fa-utensils"></i></div>
+        <div>
+          <span class="logo-title">Feast<span>Flow</span></span>
+          <span class="logo-sub">EventEats Exchange</span>
+        </div>
+      </div>
+
+      <!-- Quick Demo Presets -->
+      <div class="nav-demo-presets">
+        <span class="demo-tag"><i class="fa-solid fa-bolt"></i> Quick Demos:</span>
+        <button class="preset-pill active" id="demoBanquetBtn">100-Pax College Banquet</button>
+        <button class="preset-pill" id="demoFarewellBtn">150-Pax Farewell Dinner</button>
+        <button class="preset-pill" id="demoCorpBtn">250-Pax Corporate Gala</button>
+      </div>
+
+      <!-- Top Right Live Cost Pill & Actions -->
+      <div class="nav-actions">
+        <div class="nav-quote-pill" id="navLiveQuotePill">
+          <span class="nav-rate-label">Per Plate:</span>
+          <strong class="nav-rate-val" id="navPerPlateVal">₹450</strong>
+          <span class="nav-divider">|</span>
+          <span class="nav-total-val" id="navTotalVal">Total: ₹45,000</span>
+        </div>
+        <button class="btn btn-primary btn-sm" id="topExportQuoteBtn">
+          <i class="fa-solid fa-file-pdf"></i> <span class="hide-mobile">Official Quote</span>
+        </button>
+        <!-- User Authentication & Account State -->
+        <div class="nav-user-container" id="navUserContainer">
+          <a href="login.html" class="btn btn-outline btn-sm nav-login-btn" id="navLoginBtn">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i> <span class="hide-mobile">Sign In</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Brief Header -->
+  <section class="app-banner">
+    <div class="container banner-inner">
+      <div>
+        <h1>Smart Event Catering & Quote Calculator</h1>
+        <p>Fair, transparent per-plate costing for campus festivals, student club farewells, corporate banquets & celebrations.</p>
+      </div>
+      <div class="active-summary-tags">
+        <span class="tag-badge"><i class="fa-solid fa-users"></i> <span id="bannerPaxTag">100 Guests (70 Veg + 30 Non-Veg)</span></span>
+        <span class="tag-badge"><i class="fa-solid fa-shield-halved"></i> <span id="bannerBufferTag">+10% Buffer Cushion</span></span>
+        <span class="tag-badge highlight-tag"><i class="fa-solid fa-store"></i> <span id="bannerVendorTag">Royal Feast Caterers</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Tabs Navigation Bar -->
+  <nav class="main-tabs-nav">
+    <div class="container tabs-bar" id="mainTabsBar">
+      <button class="tab-btn active" data-tab="tab-calculator">
+        <i class="fa-solid fa-calculator"></i>
+        <span>1. Event & Headcount</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-menu">
+        <i class="fa-solid fa-bowl-food"></i>
+        <span>2. Menu Builder</span>
+        <span class="tab-pill-badge" id="tabMenuCountBadge">9</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-vendors">
+        <i class="fa-solid fa-store"></i>
+        <span>3. Caterers Directory</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-comparison">
+        <i class="fa-solid fa-code-compare"></i>
+        <span>4. Side-by-Side Matrix</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-tasting">
+        <i class="fa-solid fa-calendar-check"></i>
+        <span>5. Book Tasting</span>
+        <span class="tab-pill-badge badge-green" id="tabTastingCountBadge">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-escrow">
+        <i class="fa-solid fa-file-invoice-dollar"></i>
+        <span>6. Quote & Escrow</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-showcase">
+        <i class="fa-solid fa-camera-retro"></i>
+        <span>7. Past Events</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Application Body Container (Holds Tab Panels) -->
+  <main class="container tab-content-wrapper">
+
+    <!-- ========================================================
+         TAB 1: EVENT TYPE & DUAL-DIETARY HEADCOUNT PROFILER
+         ======================================================== -->
+    <section class="tab-panel active" id="tab-calculator">
+      <div class="tab-grid-2">
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="header-icon"><i class="fa-solid fa-sliders"></i></div>
+            <div>
+              <h2>Event Occasion & Guest Demographics</h2>
+              <p class="subtitle">Customize base menu requirements and specify segregated dietary headcounts</p>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <!-- Event Occasion Picker -->
+            <div class="form-group">
+              <label class="field-label"><i class="fa-solid fa-champagne-glasses"></i> Select Occasion Type</label>
+              <div class="pill-radio-group" id="eventTypeGroup">
+                <label class="pill-radio active">
+                  <input type="radio" name="eventType" value="College Fest" checked>
+                  <span><i class="fa-solid fa-graduation-cap"></i> College Fest / Farewell</span>
+                </label>
+                <label class="pill-radio">
+                  <input type="radio" name="eventType" value="Birthday Party">
+                  <span><i class="fa-solid fa-cake-candles"></i> Birthday Party</span>
+                </label>
+                <label class="pill-radio">
+                  <input type="radio" name="eventType" value="Corporate Banquet">
+                  <span><i class="fa-solid fa-briefcase"></i> Corporate Banquet</span>
+                </label>
+                <label class="pill-radio">
+                  <input type="radio" name="eventType" value="Wedding Gala">
+                  <span><i class="fa-solid fa-ring"></i> Wedding Gala</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Total Headcount Slider with Volume Discount Ticks -->
+            <div class="form-group headcount-box">
+              <div class="headcount-header-row">
+                <div>
+                  <span class="field-label">Total Event Headcount:</span>
+                  <strong class="large-headcount" id="totalGuestsDisplay">100 Guests</strong>
+                </div>
+                <div class="volume-discount-pill" id="volumeDiscountBadge">
+                  <i class="fa-solid fa-tag"></i> 5% Volume Tier Applied
+                </div>
+              </div>
+
+              <div class="slider-wrapper">
+                <input type="range" id="headcountSlider" min="25" max="500" step="5" value="100" class="custom-slider">
+                <div class="slider-ticks">
+                  <span>25 (Min)</span>
+                  <span>100 (5% off)</span>
+                  <span>200 (10% off)</span>
+                  <span>350+ (15% off)</span>
+                  <span>500 (Max)</span>
+                </div>
+              </div>
+
+              <!-- Segregated Dietary Counts (Veg / Non-Veg / Jain) -->
+              <div class="dietary-cards-grid">
+                <div class="diet-count-box">
+                  <div class="diet-badge-label">
+                    <span class="diet-symbol veg-symbol">●</span>
+                    <span>Pure Vegetarian</span>
+                  </div>
+                  <div class="counter-control">
+                    <button type="button" class="btn-step" id="vegMinusBtn">-</button>
+                    <input type="number" id="vegHeadcount" value="70" min="0" max="500">
+                    <button type="button" class="btn-step" id="vegPlusBtn">+</button>
+                  </div>
+                </div>
+
+                <div class="diet-count-box">
+                  <div class="diet-badge-label">
+                    <span class="diet-symbol nonveg-symbol">▲</span>
+                    <span>Non-Vegetarian</span>
+                  </div>
+                  <div class="counter-control">
+                    <button type="button" class="btn-step" id="nonvegMinusBtn">-</button>
+                    <input type="number" id="nonvegHeadcount" value="30" min="0" max="500">
+                    <button type="button" class="btn-step" id="nonvegPlusBtn">+</button>
+                  </div>
+                </div>
+
+                <div class="diet-count-box">
+                  <div class="diet-badge-label">
+                    <span class="diet-symbol jain-symbol">✦</span>
+                    <span>Strict Jain (No Onion/Garlic)</span>
+                  </div>
+                  <div class="counter-control">
+                    <button type="button" class="btn-step" id="jainMinusBtn">-</button>
+                    <input type="number" id="jainHeadcount" value="0" min="0" max="100">
+                    <button type="button" class="btn-step" id="jainPlusBtn">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-callout">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Strict Jain and Pure Veg food prepared in segregated kitchen stations with color-coded serving utensils.</span>
+              </div>
+            </div>
+
+            <!-- Per-Guest Leftover Buffer Estimator (Stretch Feature) -->
+            <div class="buffer-section">
+              <div class="buffer-header">
+                <div>
+                  <strong><i class="fa-solid fa-shield-halved"></i> Food Security Buffer: +<span id="bufferPercentDisplay">10</span>% Cushion</strong>
+                  <p class="small-text">Prevents food shortages during high campus student turnout</p>
+                </div>
+                <div class="buffer-pill-group" id="bufferPills">
+                  <button type="button" class="buffer-btn" data-buffer="0">0%</button>
+                  <button type="button" class="buffer-btn" data-buffer="5">+5%</button>
+                  <button type="button" class="buffer-btn active" data-buffer="10">+10% (Rec.)</button>
+                  <button type="button" class="buffer-btn" data-buffer="15">+15%</button>
+                </div>
+              </div>
+              <div class="buffer-stats-strip">
+                <span>Cooking equivalent for: <strong id="bufferPlatesDisplay">110 Plates</strong></span>
+                <span>Safety buffer covers: <strong id="bufferGuestCount">10 extra guests</strong></span>
+              </div>
+            </div>
+
+            <div class="tab-nav-actions">
+              <button class="btn btn-primary" onclick="switchTab('tab-menu')">
+                Continue to Menu Builder <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side Mini Live Quote Preview -->
+        <div class="panel-card highlight-card">
+          <div class="panel-header">
+            <div class="header-icon"><i class="fa-solid fa-receipt"></i></div>
+            <div>
+              <h3>Real-Time Tariff Preview</h3>
+              <p class="subtitle">Based on active caterer & headcount</p>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="active-caterer-bar">
+              <span>Active Caterer:</span>
+              <strong id="miniActiveCaterer">Royal Feast Caterers</strong>
+              <button class="btn btn-outline btn-xs" onclick="switchTab('tab-vendors')">Change</button>
+            </div>
+
+            <div class="quote-stat-box">
+              <div class="stat-cell">
+                <span class="cell-label">Per Plate Estimate</span>
+                <span class="cell-number" id="miniPerPlateCost">₹450</span>
+                <span class="cell-note" id="miniSavingsNote">5% volume discount applied</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="stat-cell">
+                <span class="cell-label">Total Event Estimate</span>
+                <span class="cell-number primary" id="miniTotalEventCost">₹45,000</span>
+                <span class="cell-note" id="miniGuestNote">For 100 Guests</span>
+              </div>
+            </div>
+
+            <div class="quick-summary-breakdown">
+              <div class="summary-line">
+                <span>Food Subtotal (<span id="miniItemCount">9</span> items)</span>
+                <strong id="miniFoodSubtotal">₹38,000</strong>
+              </div>
+              <div class="summary-line text-green" id="miniDiscountLine">
+                <span>Volume Discount (<span id="miniDiscountPct">5%</span>)</span>
+                <strong id="miniDiscountAmt">-₹1,900</strong>
+              </div>
+              <div class="summary-line">
+                <span>Live Counters & Stalls</span>
+                <strong id="miniLiveFee">₹3,500</strong>
+              </div>
+              <div class="summary-line">
+                <span>Service Staff & Chafing (8%)</span>
+                <strong id="miniServiceFee">₹3,168</strong>
+              </div>
+              <div class="summary-line">
+                <span>Catering GST (5%)</span>
+                <strong id="miniGstFee">₹2,138</strong>
+              </div>
+              <div class="summary-divider"></div>
+              <div class="summary-line total-line">
+                <strong>Grand Total Quote:</strong>
+                <strong class="primary" id="miniGrandTotal">₹45,000</strong>
+              </div>
+            </div>
+
+            <div class="card-action-btns">
+              <button class="btn btn-primary btn-block" onclick="switchTab('tab-menu')">
+                <i class="fa-solid fa-utensils"></i> Customize Menu Items
+              </button>
+              <button class="btn btn-secondary btn-block" onclick="switchTab('tab-comparison')">
+                <i class="fa-solid fa-code-compare"></i> Compare Caterers Side-by-Side
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         TAB 2: MODULAR COURSE-BY-COURSE MENU BUILDER
+         ======================================================== -->
+    <section class="tab-panel" id="tab-menu">
+      <div class="panel-card">
+        <div class="panel-header course-header-split">
+          <div class="flex-row">
+            <div class="header-icon"><i class="fa-solid fa-bowl-food"></i></div>
+            <div>
+              <h2>Course-by-Course Menu Builder</h2>
+              <p class="subtitle">Select appetizers, main courses, breads, desserts, and interactive live food stalls with transparent item rates</p>
+            </div>
+          </div>
+          <div class="selected-summary-count">
+            Total Selected: <strong id="totalSelectedMenuCount">9 Items</strong>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <!-- Course Tabs Navigation -->
+          <div class="course-subtabs" id="courseTabs">
+            <button class="course-subtab active" data-target="starters">
+              <span>Starters & Appetizers</span>
+              <span class="badge-count" id="count-starters">2</span>
+            </button>
+            <button class="course-subtab" data-target="mains">
+              <span>Main Courses</span>
+              <span class="badge-count" id="count-mains">3</span>
+            </button>
+            <button class="course-subtab" data-target="breadsRice">
+              <span>Breads & Fragrant Rice</span>
+              <span class="badge-count" id="count-breadsRice">2</span>
+            </button>
+            <button class="course-subtab" data-target="desserts">
+              <span>Desserts</span>
+              <span class="badge-count" id="count-desserts">2</span>
+            </button>
+            <button class="course-subtab highlight-tab" data-target="liveCounters">
+              <span>Live Stalls (Add-On)</span>
+              <span class="badge-count" id="count-liveCounters">1</span>
+            </button>
+          </div>
+
+          <!-- Dish Search & Dietary Filters Bar -->
+          <div class="filter-controls-row">
+            <div class="search-wrap">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="dishSearchInput" placeholder="Search dish name or ingredient...">
+            </div>
+            <div class="diet-toggles" id="dietFilterGroup">
+              <button class="diet-toggle-btn active" data-diet="all">All Dishes</button>
+              <button class="diet-toggle-btn" data-diet="veg"><span class="diet-symbol veg-symbol">●</span> Veg</button>
+              <button class="diet-toggle-btn" data-diet="nonveg"><span class="diet-symbol nonveg-symbol">▲</span> Non-Veg</button>
+              <button class="diet-toggle-btn" data-diet="jain"><span class="diet-symbol jain-symbol">✦</span> Jain Ready</button>
+            </div>
+          </div>
+
+          <!-- Dishes Cards Grid -->
+          <div class="dishes-grid" id="dishesGrid">
+            <!-- Dynamically populated by JS -->
+          </div>
+
+          <!-- Selected Dishes Tags Ribbon -->
+          <div class="selected-items-tray">
+            <div class="tray-label"><i class="fa-solid fa-list-check"></i> Selected Menu Portfolio:</div>
+            <div class="selected-tags-flow" id="selectedSummaryPills">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <div class="tab-nav-actions flex-between">
+            <button class="btn btn-outline" onclick="switchTab('tab-calculator')">
+              <i class="fa-solid fa-arrow-left"></i> Back to Headcount
+            </button>
+            <button class="btn btn-primary" onclick="switchTab('tab-vendors')">
+              Compare & Select Caterers <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         TAB 3: VERIFIED VENDORS & QUOTES DIRECTORY
+         ======================================================== -->
+    <section class="tab-panel" id="tab-vendors">
+      <div class="panel-card">
+        <div class="panel-header flex-between">
+          <div class="flex-row">
+            <div class="header-icon"><i class="fa-solid fa-store"></i></div>
+            <div>
+              <h2>Verified Catering Vendors</h2>
+              <p class="subtitle">Real-time dynamic quotes calculated for your exact menu selections and volume headcount</p>
+            </div>
+          </div>
+          <button class="btn btn-secondary" onclick="switchTab('tab-comparison')">
+            <i class="fa-solid fa-code-compare"></i> Open Side-by-Side Comparison
+          </button>
+        </div>
+
+        <div class="panel-body">
+          <div class="caterers-list-container" id="caterersList">
+            <!-- Dynamically populated by JS -->
+          </div>
+
+          <div class="tab-nav-actions flex-between">
+            <button class="btn btn-outline" onclick="switchTab('tab-menu')">
+              <i class="fa-solid fa-arrow-left"></i> Back to Menu
+            </button>
+            <button class="btn btn-primary" onclick="switchTab('tab-comparison')">
+              View Side-by-Side Matrix <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         TAB 4: SIDE-BY-SIDE VENDOR COMPARISON MATRIX
+         ======================================================== -->
+    <section class="tab-panel" id="tab-comparison">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="header-icon"><i class="fa-solid fa-code-compare"></i></div>
+          <div>
+            <h2>Side-by-Side Caterer Comparison Matrix</h2>
+            <p class="subtitle">Direct contrast of pricing, food safety ratings, guest capacities, and escrow protection</p>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="table-responsive" id="comparisonTableWrapper">
+            <!-- Injected by JS -->
+          </div>
+
+          <div class="tab-nav-actions flex-between">
+            <button class="btn btn-outline" onclick="switchTab('tab-vendors')">
+              <i class="fa-solid fa-arrow-left"></i> Back to Caterers
+            </button>
+            <button class="btn btn-primary" onclick="switchTab('tab-tasting')">
+              Book a Food Tasting Session <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         TAB 5: FOOD TASTING BOOKING & SCHEDULED SESSIONS
+         ======================================================== -->
+    <section class="tab-panel" id="tab-tasting">
+      <div class="tab-grid-2">
+        <!-- Tasting Booking Form -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="header-icon"><i class="fa-solid fa-calendar-plus"></i></div>
+            <div>
+              <h2>Request a Food Tasting Session</h2>
+              <p class="subtitle">Taste curated sample dishes with your student committee before contract sign-off</p>
+            </div>
+          </div>
+
+          <div class="panel-body">
+            <form id="tastingBookingForm">
+              <div class="form-group">
+                <label class="field-label"><i class="fa-solid fa-store"></i> Select Caterer</label>
+                <select id="tastingCatererSelect" class="form-control" required></select>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="field-label"><i class="fa-solid fa-calendar"></i> Tasting Date</label>
+                  <input type="date" id="tastingDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label class="field-label"><i class="fa-solid fa-clock"></i> Time Slot</label>
+                  <select id="tastingTimeSlot" class="form-control" required>
+                    <option value="12:30 PM - Lunch Slot">12:30 PM (Lunch Slot)</option>
+                    <option value="04:30 PM - High Tea Slot">04:30 PM (High Tea Slot)</option>
+                    <option value="07:30 PM - Dinner Slot">07:30 PM (Dinner Slot)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="field-label"><i class="fa-solid fa-location-dot"></i> Tasting Venue</label>
+                <select id="tastingVenueSelect" class="form-control" required>
+                  <option value="Campus Student Council / Committee Room">Campus Student Council / Committee Room</option>
+                  <option value="Caterer Master Tasting Studio">Caterer Central Tasting Studio (Complimentary)</option>
+                  <option value="Delivery of Warm Sample Bento Box">Delivery of Warm Sample Bento Box to Host</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="field-label"><i class="fa-solid fa-plate-wheat"></i> Sample Dishes to Taste (Up to 4)</label>
+                <div class="tasting-samples-container" id="tastingSampleDishes">
+                  <!-- Checkboxes populated via JS -->
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="field-label"><i class="fa-solid fa-user"></i> Organizer Name</label>
+                  <input type="text" id="tastingOrganizerName" class="form-control" placeholder="e.g. Aryan Sharma (Lead)" required>
+                </div>
+                <div class="form-group">
+                  <label class="field-label"><i class="fa-solid fa-phone"></i> Phone / WhatsApp</label>
+                  <input type="tel" id="tastingPhone" class="form-control" placeholder="+91 98765 43210" required>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block btn-lg">
+                <i class="fa-solid fa-calendar-check"></i> Submit Tasting Request
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Scheduled Sessions History -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="header-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+            <div>
+              <h3>Scheduled Tasting Sessions</h3>
+              <p class="subtitle">Real-time status tracking for your event</p>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="tasting-history-list" id="bookingsHistoryList">
+              <!-- Dynamically populated from localStorage -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         TAB 6: ESCROW SIMULATOR & OFFICIAL QUOTATION PDF SHEET
+         ======================================================== -->
+    <section class="tab-panel" id="tab-escrow">
+      <!-- 3-Tier Milestone Escrow Simulator Box -->
+      <div class="panel-card mb-4">
+        <div class="panel-header flex-between">
+          <div class="flex-row">
+            <div class="header-icon"><i class="fa-solid fa-vault"></i></div>
+            <div>
+              <h2>3-Tier Vendor Escrow Milestone Payment Simulator</h2>
+              <p class="subtitle">Guaranteed funds protection: payments released strictly upon verified delivery milestones</p>
+            </div>
+          </div>
+          <span class="escrow-protect-badge"><i class="fa-solid fa-shield-check"></i> Escrow Protected</span>
+        </div>
+
+        <div class="panel-body">
+          <div class="escrow-milestone-grid">
+            <div class="milestone-card">
+              <div class="milestone-num">1</div>
+              <h4>20% Advance Booking</h4>
+              <p>Locks catering date, kitchen preparation schedule and complimentary food tasting session.</p>
+              <div class="milestone-val" id="escrowAdvanceVal">₹9,000</div>
+              <span class="milestone-status">Due on Contract Signing</span>
+            </div>
+
+            <div class="milestone-card active-tier">
+              <div class="milestone-num">2</div>
+              <h4>50% Event Day Delivery</h4>
+              <p>Released when caterer arrives on venue, sets up live stalls, chafing dishes, and passes hygiene inspection.</p>
+              <div class="milestone-val" id="escrowEventDayVal">₹22,500</div>
+              <span class="milestone-status">Due on Event Day 2h Prior</span>
+            </div>
+
+            <div class="milestone-card">
+              <div class="milestone-num">3</div>
+              <h4>30% Post-Event Settlement</h4>
+              <p>Released within 48 hours following student committee sign-off on food quality and adequate portions.</p>
+              <div class="milestone-val" id="escrowSettlementVal">₹13,500</div>
+              <span class="milestone-status">Due Post Event Sign-off</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Itemized Official Quotation Document (Ready for Print / PDF) -->
+      <div class="panel-card">
+        <div class="panel-header flex-between hide-print">
+          <div class="flex-row">
+            <div class="header-icon"><i class="fa-solid fa-file-invoice"></i></div>
+            <div>
+              <h2>Digital Catering Quotation Sheet</h2>
+              <p class="subtitle">Official itemized breakdown ready for College Committee & Corporate Finance approvals</p>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> Print / Save as PDF
+          </button>
+        </div>
+
+        <div class="panel-body printable-sheet-container">
+          <!-- Official Quotation Letterhead -->
+          <div class="official-quote-sheet" id="printableQuotation">
+            <div class="quote-sheet-header">
+              <div class="sheet-logo-group">
+                <h2>FEASTFLOW</h2>
+                <span>EVENT EATS EXCHANGE | OFFICIAL QUOTATION</span>
+                <p>Govt. Registered Fair-Price Catering Platform • Lic #FF-2026-9812</p>
+              </div>
+              <div class="sheet-meta-info">
+                <div><strong>Quote Ref:</strong> <span id="pdfQuoteRef">FF-CQ-8472</span></div>
+                <div><strong>Date:</strong> <span id="pdfQuoteDate">20-Nov-2026</span></div>
+                <div><strong>Status:</strong> <span class="badge-approved">Rate-Locked & Verified</span></div>
+              </div>
+            </div>
+
+            <hr class="quote-sheet-rule">
+
+            <div class="sheet-info-grid">
+              <div class="info-party-box">
+                <h5>EVENT & COMMITTEE DETAILS</h5>
+                <p><strong>Occasion:</strong> <span id="pdfOccasion">College Fest Banquet</span></p>
+                <p><strong>Headcount:</strong> <span id="pdfHeadcount">100 Guests (70 Veg + 30 Non-Veg)</span></p>
+                <p><strong>Buffer Cushion:</strong> <span id="pdfBuffer">+10% (110 Total Portions)</span></p>
+                <p><strong>Organizing Body:</strong> Student Council / Event Finance Committee</p>
+              </div>
+              <div class="info-party-box">
+                <h5>SELECTED CATERING PARTNER</h5>
+                <p><strong>Vendor Name:</strong> <span id="pdfCatererName">Royal Feast Caterers</span></p>
+                <p><strong>FSSAI License:</strong> 10019022003841 (Grade A+ Audit)</p>
+                <p><strong>Contact:</strong> ops@royalfeast.com | +91 98200 12345</p>
+                <p><strong>Kitchen Hub:</strong> Central Commercial Hub (FSSAI Verified)</p>
+              </div>
+            </div>
+
+            <div class="sheet-section-heading">COURSE-BY-COURSE ITEMIZED MENU BREAKDOWN</div>
+            <table class="quote-table">
+              <thead>
+                <tr>
+                  <th>Course Category</th>
+                  <th>Dish Name</th>
+                  <th>Diet Type</th>
+                  <th>Item Price Weight</th>
+                </tr>
+              </thead>
+              <tbody id="pdfMenuTableBody">
+                <!-- Dynamically populated via JS -->
+              </tbody>
+            </table>
+
+            <div class="sheet-cost-summary-row">
+              <div class="escrow-terms-box">
+                <h5>ESCROW PAYMENT SCHEDULE</h5>
+                <ul>
+                  <li><strong>Tier 1 (20% Advance):</strong> <span id="pdfAdvanceAmt">₹9,000</span> (Booking & Tasting Lock)</li>
+                  <li><strong>Tier 2 (50% Event Day):</strong> <span id="pdfEventDayAmt">₹22,500</span> (On Setup & Inspection)</li>
+                  <li><strong>Tier 3 (30% Settlement):</strong> <span id="pdfSettlementAmt">₹13,500</span> (Post-Event Sign-off)</li>
+                </ul>
+                <div class="verified-seal">FEASTFLOW VERIFIED RATE</div>
+              </div>
+
+              <div class="cost-breakdown-card">
+                <table class="cost-calc-table">
+                  <tr>
+                    <td>Base Food Subtotal:</td>
+                    <td id="pdfBaseSubtotal">₹38,000</td>
+                  </tr>
+                  <tr class="cost-discount-line">
+                    <td>Volume Discount (<span id="pdfDiscountPercent">5%</span>):</td>
+                    <td id="pdfDiscountAmt">-₹1,900</td>
+                  </tr>
+                  <tr>
+                    <td>Live Interactive Stalls:</td>
+                    <td id="pdfLiveStallsAmt">₹3,500</td>
+                  </tr>
+                  <tr>
+                    <td>Staff, Chafing & Service Fee (8%):</td>
+                    <td id="pdfServiceChargeAmt">₹3,168</td>
+                  </tr>
+                  <tr>
+                    <td>Catering GST (5%):</td>
+                    <td id="pdfGstAmt">₹2,138</td>
+                  </tr>
+                  <tr class="grand-total-highlight">
+                    <td><strong>NET PAYABLE TOTAL:</strong></td>
+                    <td><strong id="pdfGrandTotalAmt">₹45,000</strong></td>
+                  </tr>
+                  <tr class="per-plate-highlight">
+                    <td><strong>Effective Cost Per Plate:</strong></td>
+                    <td><strong id="pdfEffectivePerPlate">₹450 / Plate</strong></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="quote-signatures-row">
+              <div class="sign-block">
+                <div class="sign-line"></div>
+                <strong>Student Council / Event Lead</strong>
+                <small>Organizing Committee Chair</small>
+              </div>
+              <div class="sign-block">
+                <div class="sign-line"></div>
+                <strong>Executive Chef / Manager</strong>
+                <small>Royal Feast Caterers Auth. Signatory</small>
+              </div>
+              <div class="sign-block">
+                <div class="sign-line"></div>
+                <strong>Dean / Finance Approval</strong>
+                <small>Budget Sanction Authority</small>
+              </div>
+            </div>
+
+            <div class="sheet-legal-footer">
+              <p>FeastFlow EventEats Exchange • Generated under Student Committee Transparent Bidding Protocols</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         TAB 7: PAST EVENTS & REVIEWS SHOWCASE
+         ======================================================== -->
+    <section class="tab-panel" id="tab-showcase">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="header-icon"><i class="fa-solid fa-camera-retro"></i></div>
+          <div>
+            <h2>Past Catered Events & Verified Reviews</h2>
+            <p class="subtitle">Real event photos, host ratings, and feedback from campus farewells, hackathons, and galas</p>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="reviews-showcase-grid" id="reviewsGrid">
+            <!-- Dynamically populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sticky Bottom Navigation Bar for Mobile & Fast Tab Access -->
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <p>FeastFlow: EventEats Exchange — Transparent Event Catering Marketplace & Quote Engine.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- JavaScript Application Logic -->
+  <script src="main.js"></script>
+</body>
+</html>
